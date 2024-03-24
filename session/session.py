@@ -10,3 +10,7 @@ class Session:
         session = requests.Session()
         session.mount("https://", TLSAdapter())
         return session
+
+    def get_html_in_site(self,link):
+        response = self.session.get(link)
+        return response.text
