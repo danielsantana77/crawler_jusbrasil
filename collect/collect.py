@@ -98,4 +98,3 @@ class Collect:
                  'Descrição': description}
             )
         return list_of_movements
-        # return date, moviment

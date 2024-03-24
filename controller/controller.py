@@ -3,6 +3,7 @@ from courts.available_courts import dict_courts
 from bs4 import BeautifulSoup
 from collect.collect import Collect
 
+
 class Controller:
     def __init__(self, cnj):
         self.cnj = str(cnj).replace('-', '').replace('.', '')
@@ -24,17 +25,20 @@ class Controller:
     def collect_code_process_in_page(self, html, court):
         soap = BeautifulSoup(html, 'html.parser')
         if "processoSelecionado" in html:
-            process_code = soap.find('input', {'id' :'processoSelecionado'})['value']
+            process_code = soap.find('input', {'id': 'processoSelecionado'})['value']
             html = self.session.get_html_in_site(court.get_url_show_process(process_code))
         return html
-
 
     def collect_data_in_courts(self):
         list_courts = dict_courts[self.court_code]
         for court in list_courts:
             court_obj = court(self.cnj)
-            html = self.session.get_html_in_site(court_obj.get_url_search_process())
-            html = self.collect_code_process_in_page(html, court_obj)
-            collect = Collect(html)
-            self.collections_result[court_obj.state + ' ' + court_obj.degree] = collect.process.to_json()
+            court_name = court_obj.state + ' ' + court_obj.degree
+            try:
+                html = self.session.get_html_in_site(court_obj.get_url_search_process())
+                html = self.collect_code_process_in_page(html, court_obj)
+                collect = Collect(html)
+                self.collections_result[court_name] = collect.process.to_json()
+            except:
+                self.collections_result[court_name] = {"Status": "Acesso ao Processo Negado"}
         return self.collections_result
