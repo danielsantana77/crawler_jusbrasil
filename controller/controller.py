@@ -1,6 +1,7 @@
 from session.session import Session
 from courts.available_courts import dict_courts
 from bs4 import BeautifulSoup
+from collect.collect import Collect
 
 class Controller:
     def __init__(self, cnj):
@@ -34,5 +35,6 @@ class Controller:
             court_obj = court(self.cnj)
             html = self.session.get_html_in_site(court_obj.get_url_search_process())
             html = self.collect_code_process_in_page(html, court_obj)
-
-        return {'Message': 'Em construção'}
+            collect = Collect(html)
+            self.collections_result[court_obj.state + ' ' + court_obj.degree] = collect.process.to_json()
+        return self.collections_result
