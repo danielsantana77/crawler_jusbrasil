@@ -60,6 +60,15 @@ class Collect:
         text = text.replace('\t', '').strip().split('\n')[0]
         return text
 
+    def __get_parts_in_element(self, parts):
+        involved_list = []
+        for elem in iter(parts):
+            if not 'span' in str(elem):
+                part_name = self.__format_text(elem.text)
+                if part_name: involved_list.append(self.__format_text(elem.text))
+
+        return involved_list
+
     def collect_parts_involved(self):
         list_of_parts = []
         dict_of_parts = {}
@@ -67,10 +76,10 @@ class Collect:
         trs = parts_involved.findAll('tr')
         for tr in trs:
             part_type = tr.find('span', {'class': 'mensagemExibindo tipoDeParticipacao'}).text
-            part = tr.find('td', {'class': 'nomeParteEAdvogado'}).text
-            part = self.__format_text(part)
+            part = tr.find('td', {'class': 'nomeParteEAdvogado'})
+            parts = self.__get_parts_in_element(part)
             part_type = self.__format_text(part_type)
-            dict_of_parts[part_type] = part
+            dict_of_parts[part_type] = parts
         list_of_parts.append(dict_of_parts)
 
         return list_of_parts

@@ -12,12 +12,12 @@ class Process:
     def to_json(self):
         return {
             'Classe': self.juridic_class,
-            'Area': self.area,
+            'Área': self.area,
             'Assunto': self.subject,
             'Data de distribuicao': self.distribution_date,
             'Juiz': self.judge,
             'Valor da Ação': self.claim_value,
-            'Partes': self.parts_involved,
+            'Partes Envolvidas': self.parts_involved,
             'Movimentações': self.list_of_movements
         }
 
