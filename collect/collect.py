@@ -21,38 +21,37 @@ class Collect:
         self.process.set_judge(self.collect_judge())
 
     def collect_juridic_class(self):
-        juridic_class = self.soup.find('span', {'id': 'classeProcesso'})
-        if juridic_class:
-            return juridic_class.text
-        juridic_class = self.soup.find('div', {'id': 'classeProcesso'}).findChild('span')
+        juridic_class = self.soup.find(id='classeProcesso')
+        if not juridic_class:
+            return "Indisponivel"
         return juridic_class.text
 
     def collect_area(self):
-        div = self.soup.find('div', {'id': 'areaProcesso'})
-        area = div.find('span').text
-        return area
+        area = self.soup.find('div', {'id': 'areaProcesso'})
+        if not area:
+            return "Indisponivel"
+        return area.text
 
     def collect_subject(self):
-        subject = self.soup.find('span', {'id': 'assuntoProcesso'})
+        subject = self.soup.find(id='assuntoProcesso')
         if not subject:
-            div = self.soup.find('div', {'id': 'assuntoProcesso'})
-            subject = div.find('span')
+            return "Indisponivel"
         return subject.text
 
     def collect_distribution_date(self):
-        distribution_date = self.soup.find('div', {'id': 'dataHoraDistribuicaoProcesso'})
+        distribution_date = self.soup.find(id='dataHoraDistribuicaoProcesso')
         if not distribution_date:
             return "Indisponivel"
         return distribution_date.text
 
     def collect_judge(self):
-        judge = self.soup.find('span', {'id': 'juizProcesso'})
+        judge = self.soup.find(id='juizProcesso')
         if not judge:
             return "Indisponivel"
         return judge.text
 
     def collect_claim_value(self):
-        claim_value = self.soup.find('div', {'id': 'valorAcaoProcesso'})
+        claim_value = self.soup.find(id='valorAcaoProcesso')
         if not claim_value:
             return "Indisponivel"
         return claim_value.text
