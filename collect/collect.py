@@ -8,7 +8,6 @@ class Collect:
         self.html = html
         self.soup = BeautifulSoup(self.html, 'html.parser')
         self.process = Process()
-        self.collect_data()
 
     def collect_data(self):
         self.process.set_area(self.collect_area())
@@ -84,20 +83,26 @@ class Collect:
 
         return list_of_parts
 
+    def __collect_date(self, element):
+        date = element.find('td', {'class': 'dataMovimentacao'})
+        if not date:
+            date = element.find('td', {'class': 'dataMovimentacaoProcesso'})
+        return self.__format_text(date.text)
+    def __collect_description_element(self,element):
+        td_moviment = element.find('td', {'class': 'descricaoMovimentacao'})
+        if not td_moviment:
+            td_moviment = element.find('td', {'class': 'descricaoMovimentacaoProcesso'})
+        return td_moviment
+
     def collect_movements_of_process(self):
         list_of_movements = []
         table = self.soup.find('tbody', {'id': 'tabelaUltimasMovimentacoes'})
         trs = table.findAll('tr')
         for tr in trs:
-            date = tr.find('td', {'class': 'dataMovimentacao'})
-            if not date:
-                date = tr.find('td', {'class': 'dataMovimentacaoProcesso'})
-            date = self.__format_text(date.text)
-            td_moviment = tr.find('td', {'class': 'descricaoMovimentacao'})
-            if not td_moviment:
-                td_moviment = tr.find('td', {'class': 'descricaoMovimentacaoProcesso'})
-            link = td_moviment.find('a')
-            movement = link.text if link else td_moviment.text
+            date = self.__collect_date(tr)
+            td_movement = self.__collect_description_element(tr)
+            link = td_movement.find('a')
+            movement = link.text if link else td_movement.text
             movement = self.__format_text(movement)
             description = self.__format_text(tr.find('span').text)
             list_of_movements.append((date, movement, description))

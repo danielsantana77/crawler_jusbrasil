@@ -38,6 +38,7 @@ class Controller:
                 html = self.session.get_html_in_site(court_obj.get_url_search_process())
                 html = self.collect_code_process_in_page(html, court_obj)
                 collect = Collect(html)
+                collect.collect_data()
                 self.collections_result[court_name] = collect.process.to_json()
             except:
                 self.collections_result[court_name] = {"Status": "Acesso ao Processo Negado"}
