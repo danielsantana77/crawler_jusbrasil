@@ -23,37 +23,37 @@ class Collect:
         juridic_class = self.soup.find(id='classeProcesso')
         if not juridic_class:
             return "Indisponivel"
-        return juridic_class.text
+        return self.__format_text(juridic_class.text)
 
     def collect_area(self):
         area = self.soup.find('div', {'id': 'areaProcesso'})
         if not area:
             return "Indisponivel"
-        return area.text
+        return self.__format_text(area.text)
 
     def collect_subject(self):
         subject = self.soup.find(id='assuntoProcesso')
         if not subject:
             return "Indisponivel"
-        return subject.text
+        return self.__format_text(subject.text)
 
     def collect_distribution_date(self):
         distribution_date = self.soup.find(id='dataHoraDistribuicaoProcesso')
         if not distribution_date:
             return "Indisponivel"
-        return distribution_date.text
+        return self.__format_text(distribution_date.text)
 
     def collect_judge(self):
         judge = self.soup.find(id='juizProcesso')
         if not judge:
             return "Indisponivel"
-        return judge.text
+        return self.__format_text(judge.text)
 
     def collect_claim_value(self):
         claim_value = self.soup.find(id='valorAcaoProcesso')
         if not claim_value:
             return "Indisponivel"
-        return claim_value.text
+        return self.__format_text(claim_value.text)
 
     def __format_text(self, text):
         text = text.replace('\t', '').strip().split('\n')[0]

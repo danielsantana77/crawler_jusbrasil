@@ -17,7 +17,7 @@ class Process:
             'Classe': self.juridic_class,
             'Área': self.area,
             'Assunto': self.subject,
-            'Data de distribuicao': self.distribution_date,
+            'Data de Distribuição': self.distribution_date,
             'Juiz': self.judge,
             'Valor da Ação': self.claim_value,
             'Partes Envolvidas': self.parts_involved,
@@ -40,7 +40,7 @@ class Process:
         self.judge = judge
 
     def set_claim_value(self, claim_value):
-        self.claim_value = claim_value
+        self.claim_value = claim_value.replace(' ','').replace('R$','')
 
     def set_parts_involved(self, parts_involved):
         self.parts_involved = parts_involved
