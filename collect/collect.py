@@ -55,7 +55,8 @@ class Collect:
             return "Indisponivel"
         return self.__format_text(claim_value.text)
 
-    def __format_text(self, text):
+    @staticmethod
+    def __format_text(text):
         text = text.replace('\t', '').strip().split('\n')[0]
         return text
 
@@ -88,7 +89,9 @@ class Collect:
         if not date:
             date = element.find('td', {'class': 'dataMovimentacaoProcesso'})
         return self.__format_text(date.text)
-    def __collect_description_element(self,element):
+
+    @staticmethod
+    def __collect_description_element(element):
         td_moviment = element.find('td', {'class': 'descricaoMovimentacao'})
         if not td_moviment:
             td_moviment = element.find('td', {'class': 'descricaoMovimentacaoProcesso'})

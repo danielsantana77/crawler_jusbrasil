@@ -20,14 +20,14 @@ def api():
 
 @app.route('/api/collect', methods=['POST'])
 def collect():
-    data = request.json
-    if not 'processo' in data:
-        message = {'Message': 'Invalid request '}
+    cnj = request.json.get('processo', None)
+    if not cnj:
+        message = {'Message': 'Invalid request, verify the body content'}
         return Response(response=json.dumps(message), mimetype='application/json', status=400)
-    cnj = data['processo']
     controller = Controller(cnj)
-    return Response(response=json.dumps(controller.consult_process()), mimetype='application/json', status=200)
+    controller.consult_process()
+    return Response(response=json.dumps(controller.collections_result), mimetype='application/json', status=200)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
