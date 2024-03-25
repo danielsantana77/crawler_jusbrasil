@@ -1,5 +1,9 @@
-class SecondDegreeCeara:
+from courts.abstract_court import AbstractCourt
+
+
+class SecondDegreeCeara(AbstractCourt):
     def __init__(self, cnj):
+        super().__init__()
         self.cnj = cnj
         self.state = "CE"
         self.degree = "2 grau"
