@@ -1,3 +1,6 @@
+from model.movement import Movement
+
+
 class Process:
     def __init__(self):
         self.juridic_class = ''
@@ -18,7 +21,7 @@ class Process:
             'Juiz': self.judge,
             'Valor da Ação': self.claim_value,
             'Partes Envolvidas': self.parts_involved,
-            'Movimentações': self.list_of_movements
+            'Movimentações': [movements.to_json() for movements in self.list_of_movements]
         }
 
     def set_juridic_class(self, juridic_class):
@@ -43,4 +46,6 @@ class Process:
         self.parts_involved = parts_involved
 
     def set_list_of_movements(self, list_of_movements):
-        self.list_of_movements = list_of_movements
+        for movement in list_of_movements:
+            date, movement,description = movement
+            self.list_of_movements.append(Movement(date, movement,description))

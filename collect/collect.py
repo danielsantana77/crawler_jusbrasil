@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from process.process import Process
+from model.process import Process
 
 
 class Collect:
@@ -100,9 +100,6 @@ class Collect:
             movement = link.text if link else td_moviment.text
             movement = self.__format_text(movement)
             description = self.__format_text(tr.find('span').text)
-            list_of_movements.append(
-                {'Data': date,
-                 'Movimento': movement,
-                 'Descrição': description}
-            )
+            list_of_movements.append((date, movement, description))
+
         return list_of_movements
