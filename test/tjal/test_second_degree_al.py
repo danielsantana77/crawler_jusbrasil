@@ -3,8 +3,7 @@ from controller.controller import Controller
 cnj = '0710802-55.2018.8.02.0001'
 controller = Controller(cnj)
 controller.consult_process()
-print(controller.collections_result)
-process_data = controller.collections_result['Alagoas 2 grau']
+process_data = controller.collections_result['Alagoas Segundo grau']
 
 
 def test_quantity_of_parts():
