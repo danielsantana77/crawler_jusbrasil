@@ -6,7 +6,7 @@ class FirstDegreeAlagoas(AbstractCourt):
         super().__init__()
         self.cnj = cnj
         self.state = "Alagoas"
-        self.degree = "1 grau"
+        self.degree = "Primeiro grau"
         self.url_search_process = "https://www2.tjal.jus.br/cpopg/search.do?"
         self.url_show_process = "https://www2.tjal.jus.br/cpopg/show.do?"
 

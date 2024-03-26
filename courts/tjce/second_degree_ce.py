@@ -6,7 +6,7 @@ class SecondDegreeCeara(AbstractCourt):
         super().__init__()
         self.cnj = cnj
         self.state = "Ceará"
-        self.degree = "2 grau"
+        self.degree = "Segundo grau"
         self.url_search_process = "https://esaj.tjce.jus.br/cposg5/search.do?"
         self.url_show_process = "https://esaj.tjce.jus.br/cposg5/show.do?"
 

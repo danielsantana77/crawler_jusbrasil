@@ -1,6 +1,7 @@
 import requests
-from requests.adapters import HTTPAdapter
+
 from session.tls_adapter import TLSAdapter
+
 
 class Session:
     def __init__(self):
@@ -11,6 +12,6 @@ class Session:
         session.mount("https://", TLSAdapter())
         return session
 
-    def get_html_in_site(self,link):
+    def get_html_in_site(self, link):
         response = self.session.get(link)
         return response.text
