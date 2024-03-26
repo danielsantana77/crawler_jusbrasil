@@ -9,7 +9,6 @@ class Controller:
         self.cnj = str(cnj).replace('-', '').replace('.', '')
         self.court_code = self.cnj[14:16]
         self.session = Session()
-        self.courts_collect = None
         self.collections_result = {}
 
     def validate_cnj_process(self):
